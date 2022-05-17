@@ -92,7 +92,18 @@
               {{ data.item.razonSocial }}
             </span>
             <small class="text-muted">{{ data.item.representanteLegal }}</small>
-            <small class="text-muted d-block ">RUC {{ data.item.documento }}</small>
+            <small
+              v-if="data.item.ruc.length == 11"
+              class="text-muted d-block"
+            >
+              RUC {{ data.item.ruc }}
+            </small>
+            <small
+              v-if="data.item.ruc.length == 8"
+              class="text-muted d-block"
+            >
+              DNI {{ data.item.ruc }}
+            </small>
           </b-media>
         </template>
 
