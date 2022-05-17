@@ -162,100 +162,6 @@
         <h6
           class="text-info"
         >
-          <feather-icon icon="CheckCircleIcon" />
-          <span class="align-middle ml-25">Datos del Rubro</span>
-        </h6>
-
-        <hr style="border-top: 2px solid #00cfe8;margin-bottom: 1rem !important;margin-top: 0 !important;">
-
-        <b-row>
-          <b-col
-            cols="12"
-            md="6"
-          >
-            <b-form-group
-              label="Tipo Producto"
-              label-for="tipoProducto"
-            >
-              <v-select
-                v-model="tipoProductoSel"
-                :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
-                :options="tiposProducto"
-                @input="showBox()"
-              />
-            </b-form-group>
-          </b-col>
-          <b-col
-            cols="12"
-            md="6"
-          >
-            <b-form-group
-              label="Código Osinergmin"
-              label-for="codigoOsinergmin"
-            >
-              <b-form-input
-                id="codigoOsinergmin"
-                v-model="formData.codigoOsinergmin"
-              />
-            </b-form-group>
-          </b-col>
-          <b-col
-            cols="12"
-            md="12"
-          >
-            <b-form-group
-              v-if="isCilindro"
-              label="Capacidad Autorizada"
-              label-for="capacidadAutorizada"
-            >
-              <b-input-group
-                append="KG"
-              >
-                <b-form-input
-                  id="capacidadAutorizada"
-                  v-model="formData.capacidadAutorizada"
-                  type="number"
-                />
-              </b-input-group>
-            </b-form-group>
-
-            <b-form-group
-              v-if="isGranel"
-              label="Capacidad Granel"
-              label-for="capacidadGranel"
-            >
-              <b-input-group
-                append="GAL"
-              >
-                <b-form-input
-                  id="capacidadGranel"
-                  v-model="formData.capacidadGranel"
-                  type="number"
-                />
-              </b-input-group>
-            </b-form-group>
-
-            <b-form-group
-              v-if="isGranel"
-              label="Capacidad Actual"
-              label-for="capacidadActualPorc"
-            >
-              <b-input-group
-                append="%"
-              >
-                <b-form-input
-                  id="capacidadActualPorc"
-                  v-model="formData.capacidadActualPorc"
-                  type="number"
-                />
-              </b-input-group>
-            </b-form-group>
-          </b-col>
-        </b-row>
-
-        <h6
-          class="text-info"
-        >
           <feather-icon icon="MapPinIcon" />
           <span class="align-middle ml-25">Ubicación</span>
         </h6>
@@ -263,41 +169,42 @@
         <hr style="border-top: 2px solid #00cfe8;margin-bottom: 1rem !important;margin-top: 0 !important;">
 
         <b-form-group
-          label="Seleccione Departamento"
-          label-for="dpto"
+          label="Ubigeo"
+          label-for="ubigeo"
         >
-          <v-select
-            v-model="dptoSel"
-            :reduce="m => m.idUbigeo"
-            label="descripcion"
-            :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
-            :options="dptos"
-            @input="getUbigeos('prov', dptoSel.slice(0, 2))"
+          <b-form-input
+            id="ubigeo"
+            v-model="formData.ubigeo"
           />
         </b-form-group>
+
         <b-form-group
-          label="Seleccione Provincia"
-          label-for="prov"
+          label="Departamento"
+          label-for="departamento"
         >
-          <v-select
-            v-model="provSel"
-            :reduce="m => m.idUbigeo"
-            label="descripcion"
-            :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
-            :options="provs"
-            @input="getUbigeos('dist', provSel.slice(0, 4))"
+          <b-form-input
+            id="departamento"
+            v-model="formData.departamento"
           />
         </b-form-group>
+
         <b-form-group
-          label="Seleccione Distrito"
-          label-for="dist"
+          label="Provincia"
+          label-for="provincia"
         >
-          <v-select
-            v-model="distSel"
-            :reduce="m => m.idUbigeo"
-            label="descripcion"
-            :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
-            :options="dists"
+          <b-form-input
+            id="provincia"
+            v-model="formData.provincia"
+          />
+        </b-form-group>
+
+        <b-form-group
+          label="Distrito"
+          label-for="distrito"
+        >
+          <b-form-input
+            id="distrito"
+            v-model="formData.distrito"
           />
         </b-form-group>
 
@@ -311,35 +218,11 @@
           />
         </b-form-group>
 
-        <b-form-group
-          label="Latitud"
-          label-for="latitud"
-        >
-          <b-form-input
-            id="latitud"
-            v-model="formData.latitud"
-            trim
-            placeholder=""
-          />
-        </b-form-group>
-
-        <b-form-group
-          label="Longitud"
-          label-for="longitud"
-        >
-          <b-form-input
-            id="longitud"
-            v-model="formData.longitud"
-            trim
-            placeholder=""
-          />
-        </b-form-group>
-
         <h6
           class="text-info"
         >
-          <feather-icon icon="PhoneCallIcon" />
-          <span class="align-middle ml-25">Datos de Contacto</span>
+          <feather-icon icon="CheckCircleIcon" />
+          <span class="align-middle ml-25">Sunat</span>
         </h6>
 
         <hr style="border-top: 2px solid #00cfe8;margin-bottom: 1rem !important;margin-top: 0 !important;">
@@ -350,28 +233,12 @@
             md="12"
           >
             <b-form-group
-              label="Celular"
-              label-for="celular"
+              label="Estado"
+              label-for="estadoSunat"
             >
               <b-form-input
-                id="celular"
-                v-model="formData.celular"
-                type="number"
-              />
-            </b-form-group>
-          </b-col>
-          <b-col
-            cols="12"
-            md="12"
-          >
-            <b-form-group
-              label="Correo"
-              label-for="correo"
-            >
-              <b-form-input
-                id="correo"
-                v-model="formData.correo"
-                type="email"
+                id="estadoSunat"
+                v-model="formData.estadoSunat"
               />
             </b-form-group>
           </b-col>
@@ -463,73 +330,49 @@ export default {
     const tipoDocSel = ref(null)
     const formData = ref({})
     const fotoReniec = ref('')
-    const cargos = ref(['GERENTE GENERAL', 'GERENTE OPERACIONES', 'GERENTE RRHH', 'SUPERVISOR COMERCIAL ZONAL', 'SUPERVISOR GRANEL', 'COORDINADOR OSINERGMIN', 'CAJERA', 'CONTADOR', 'JEFE DEPOSITO GASOCENTRO', 'JEFE PLATAFORMA', 'CONDUCTOR TRANSPORTE PRIMARIO', 'CONDUCTOR TRANSPORTE SECUNDARIO', 'VENDEDOR GRANEL', 'VENDEDOR CILINDROS', 'VENDEDOR DEPOSITO', 'VENDEDOR GASOCENTRO', 'VIGILANTE', 'DELIVERISTA'])
-    const cargoSel = ref(null)
-    const sexos = ref(['MASCULINO', 'FEMENINO'])
-    const sexoSel = ref('MASCULINO')
     const readonlyFrm = ref(false)
     const tiposPersona = ref(['JURIDICA', 'NATURAL'])
     const tipoPersonaSel = ref('JURIDICA')
-    const tiposProducto = ref(['CILINDRO', 'GRANEL', 'AMBOS'])
-    const tipoProductoSel = ref('CILINDRO')
     const isJuridica = ref(true)
-    const dptoSel = ref('220000')
-    const provSel = ref(null)
-    const distSel = ref(null)
-    const dptos = ref([])
-    const provs = ref([])
-    const dists = ref([])
     const placeholderTP = ref('Ingrese RUC')
-    const isGranel = ref(false)
-    const isCilindro = ref(false)
-
     const resetForm = () => {
       formData.value = {}
       fotoReniec.value = ''
     }
 
-    const getTiposDocumento = async () => {
-      await store.dispatch('catalogo/TIPO_DOCUMENTO_FIND_ALL')
-        .then(response => {
-          if (response) {
-            tiposDocument.value = response
-            tipoDocSel.value = tiposDocument.value.find(id => id.idTipoDocumento === 1)
-          }
-        })
-    }
-
-    const showBox = () => {
-      if (tipoProductoSel.value === 'GRANEL') {
-        isGranel.value = true
-        isCilindro.value = false
-      }
-
-      if (tipoProductoSel.value === 'CILINDRO') {
-        isGranel.value = false
-        isCilindro.value = true
-      }
-
-      if (tipoProductoSel.value === 'AMBOS') {
-        isGranel.value = true
-        isCilindro.value = true
-      }
-    }
-
     const searchData = async () => {
+      // VALIDACIONES
+      if (tipoPersonaSel.value === 'NATURAL' && formData.value.documento.length !== 8) {
+        emit('error-data', { response: { data: { message: 'Debe ingresar un número de documento válido de la Empresa (DNI, 8 dígitos)' } } })
+        return
+      }
+
+      if (tipoPersonaSel.value === 'JURIDICA' && formData.value.documento.length !== 11) {
+        emit('error-data', { response: { data: { message: 'Debe ingresar un número de documento válido de la Empresa (RUC, 11 dígitos)' } } })
+        return
+      }
       isBusy.value = true
 
       if (tipoPersonaSel.value === 'JURIDICA') {
         placeholderTP.value = 'Ingrese RUC'
         await store
-          .dispatch('helpers/GET_DATOS_BY_RUC', {
-            dni: formData.value.documento,
+          .dispatch('helpers/GET_DATOS_BY_RUC2', {
+            ruc: formData.value.documento,
+            tipo: 2,
+            token: '',
           })
           .then(response => {
             isBusy.value = false
-            formData.value.representanteLegal = response.nombre
-            formData.value.razonSocial = response.nombre
+            formData.value.representanteLegal = response.razon_social
+            formData.value.razonSocial = response.razon_social
             formData.value.foto = ''
             fotoReniec.value = ''
+            formData.value.ubigeo = response.ubigeo
+            formData.value.departamento = response.departamento
+            formData.value.provincia = response.provincia
+            formData.value.distrito = response.distrito
+            formData.value.direccion = response.direccion
+            formData.value.estadoSunat = response.estado
           })
           .catch(error => {
             isBusy.value = false
@@ -550,6 +393,14 @@ export default {
               formData.value.foto = response.datosPersona.foto
               formData.value.direccion = response.datosPersona.direccion
               fotoReniec.value = response.datosPersona.foto
+              if (response.datosPersona.ubigeo.length > 0) {
+                const ubigeoParams = response.datosPersona.ubigeo.split('/')
+                if (ubigeoParams.length === 3) {
+                  [formData.value.departamento, formData.value.provincia, formData.value.distrito] = ubigeoParams
+                }
+              }
+              formData.value.ubigeo = ''
+              formData.value.estadoSunat = ''
             }
             isBusy.value = false
           })
@@ -576,6 +427,24 @@ export default {
         })
     }
 
+    const getRuc2 = async () => {
+      isBusy.value = true
+      await store
+        .dispatch('helpers/GET_DATOS_BY_RUC2', {
+          ruc: formData.value.documento,
+          tipo: 2,
+          token: '',
+        })
+        .then(response => {
+          isBusy.value = false
+          console.log(response)
+        })
+        .catch(error => {
+          isBusy.value = false
+          emit('error-data', error)
+        })
+    }
+
     const saveForm = async () => {
       // Validar datos antes
       if (tipoPersonaSel.value === null) {
@@ -584,61 +453,62 @@ export default {
       }
 
       if (formData.value.documento === null || formData.value.documento === '') {
-        emit('error-data', { response: { data: { message: 'Debe ingresar número de documento del Cliente' } } })
+        emit('error-data', { response: { data: { message: 'Debe ingresar número de documento de la Empresa' } } })
+        return
+      }
+
+      if (tipoPersonaSel.value === 'NATURAL' && formData.value.documento.length !== 8) {
+        emit('error-data', { response: { data: { message: 'Debe ingresar un número de documento válido de la Empresa (DNI, 8 dígitos)' } } })
+        return
+      }
+
+      if (tipoPersonaSel.value === 'JURIDICA' && formData.value.documento.length !== 11) {
+        emit('error-data', { response: { data: { message: 'Debe ingresar un número de documento válido de la Empresa (RUC, 11 dígitos)' } } })
         return
       }
 
       if (formData.value.razonSocial === null || formData.value.razonSocial === '') {
-        emit('error-data', { response: { data: { message: 'Debe ingresar Razón Social del Cliente' } } })
+        emit('error-data', { response: { data: { message: 'Debe ingresar Razón Social de la Empresa' } } })
         return
       }
 
-      if (dptoSel.value === null) {
-        emit('error-data', { response: { data: { message: 'Debe seleccionar departamento donde reside el Cliente' } } })
+      if (formData.value.ubigeo === null || formData.value.ubigeo === '') {
+        emit('error-data', { response: { data: { message: 'Debe ingresar el código de ubigeo donde reside la Empresa' } } })
         return
       }
 
-      if (provSel.value === null) {
-        emit('error-data', { response: { data: { message: 'Debe seleccionar provincia donde reside el Cliente' } } })
+      if (formData.value.departamento === null || formData.value.departamento === '') {
+        emit('error-data', { response: { data: { message: 'Debe ingresar departamento donde reside la Empresa' } } })
         return
       }
 
-      if (distSel.value === null) {
-        emit('error-data', { response: { data: { message: 'Debe seleccionar distrito donde reside el Cliente' } } })
+      if (formData.value.provincia === null || formData.value.provincia === '') {
+        emit('error-data', { response: { data: { message: 'Debe ingresar provincia donde reside la Empresa' } } })
         return
       }
 
-      if (tipoProductoSel.value === null) {
-        emit('error-data', { response: { data: { message: 'Debe seleccionar el Tipo de Producto' } } })
+      if (formData.value.distrito === null || formData.value.distrito === '') {
+        emit('error-data', { response: { data: { message: 'Debe ingresar distrito donde reside la Empresa' } } })
         return
       }
 
-      let service = 'comercial/CLIENTE_CREATE'
+      if (formData.value.direccion === null || formData.value.direccion === '') {
+        emit('error-data', { response: { data: { message: 'Debe ingresar dirección donde reside la Empresa' } } })
+        return
+      }
+
+      if (formData.value.estadoSunat === null || formData.value.estadoSunat === '') {
+        emit('error-data', { response: { data: { message: 'Debe ingresar estado sunat de la Empresa' } } })
+        return
+      }
+      console.log('la dire >>>', formData.value.direccion)
+      console.log('la razonSocial >>>', formData.value.razonSocial)
+
+      formData.value.ruc = formData.value.documento
+
+      let service = 'proceso/EMPRESA_CREATE'
       if (props.formType === 'edit') {
-        service = 'comercial/CLIENTE_UPDATE'
-      }
-
-      if (tipoPersonaSel.value === 'JURIDICA') {
-        formData.value.tipoDocumento = {
-          idTipoDocumento: 3,
-        }
-        formData.value.foto = ''
-      }
-
-      if (tipoPersonaSel.value === 'NATURAL') {
-        formData.value.tipoDocumento = {
-          idTipoDocumento: 1,
-        }
-        if (fotoReniec.value !== '') {
-          formData.value.foto = fotoReniec.value
-        }
-      }
-
-      // formData.value.tipoDocumento = tipoDocSel.value
-      formData.value.tipoPersona = tipoPersonaSel.value
-      formData.value.tipoProducto = tipoProductoSel.value
-      formData.value.ubigeo = {
-        idUbigeo: distSel.value,
+        service = 'proceso/EMPRESA_UPDATE'
       }
 
       await store.dispatch(service, formData.value)
@@ -648,7 +518,7 @@ export default {
         })
         .catch(error => {
           emit('error-data', error)
-          emit('update:is-toggle-sidebar', false)
+          // emit('update:is-toggle-sidebar', false)
         })
     }
 
@@ -657,84 +527,31 @@ export default {
       return false
     }
 
-    const getUbigeos = async (type, codUbigeo) => {
-      await store
-        .dispatch('catalogo/UBIGEO_FIND_ALL', {
-          get: type,
-          codUbigeo,
-        })
-        .then(response => {
-          if (type === 'dpto') {
-            dptos.value = response
-            provSel.value = null
-            distSel.value = null
-            provs.value = []
-            dists.value = []
-          }
-          if (type === 'prov') {
-            provs.value = response
-            provSel.value = null
-            distSel.value = null
-            dists.value = []
-          }
-          if (type === 'dist') {
-            dists.value = response
-          }
-        })
-        .catch(error => {
-          emit('error-data', error)
-        })
-    }
-
     const toggleSidebar = async val => {
       emit('update:is-toggle-sidebar', val)
       resetForm()
-      await getTiposDocumento()
       if (props.formType === 'new') {
-        titleForm.value = 'Agregar Cliente'
-        await getUbigeos('dpto', '')
-        await getUbigeos('prov', dptoSel.value.slice(0, 2))
+        titleForm.value = 'Agregar Empresa'
       }
       if (props.formType === 'edit') {
         formData.value = {
-          idCliente: props.dataEdit.idCliente,
-          tipoPersona: props.dataEdit.tipoPersona,
-          documento: props.dataEdit.documento,
+          idEmpresa: props.dataEdit.idEmpresa,
+          documento: props.dataEdit.ruc,
           razonSocial: props.dataEdit.razonSocial,
-          representanteLegal: props.dataEdit.representanteLegal,
+          representanteLegal: props.dataEdit.razonSocial,
           direccion: props.dataEdit.direccion,
-          latitud: props.dataEdit.latitud,
-          longitud: props.dataEdit.longitud,
+          ubigeo: props.dataEdit.ubigeo,
+          departamento: props.dataEdit.departamento,
+          provincia: props.dataEdit.provincia,
+          distrito: props.dataEdit.distrito,
+          estadoSunat: props.dataEdit.estadoSunat,
           foto: props.dataEdit.foto,
-          codigoOsinergmin: props.dataEdit.codigoOsinergmin,
-          capacidadAutorizada: props.dataEdit.capacidadAutorizada,
-          capacidadGranel: props.dataEdit.capacidadGranel,
-          capacidadActualPorc: props.dataEdit.capacidadActualPorc,
-          celular: props.dataEdit.celular,
-          correo: props.dataEdit.correo,
           estado: props.dataEdit.estado,
         }
-        tipoProductoSel.value = props.dataEdit.tipoProducto
-        tipoPersonaSel.value = props.dataEdit.tipoPersona
-        tipoDocSel.value = props.dataEdit.tipoDocumento
         fotoReniec.value = props.dataEdit.foto
-        dptoSel.value = `${props.dataEdit.ubigeo.idUbigeo.slice(0, 2)}0000`
-        await getUbigeos('dpto', '')
-        await getUbigeos('prov', props.dataEdit.ubigeo.idUbigeo.slice(0, 2))
-        provSel.value = `${props.dataEdit.ubigeo.idUbigeo.slice(0, 4)}00`
-        await getUbigeos('dist', props.dataEdit.ubigeo.idUbigeo.slice(0, 4))
-        distSel.value = props.dataEdit.ubigeo.idUbigeo
-        if (tipoPersonaSel.value === 'NATURAL') {
-          isJuridica.value = false
-        } else {
-          isJuridica.value = true
-        }
-        titleForm.value = 'Editar Cliente'
+        titleForm.value = 'Editar Empresa'
       }
-      showBox()
     }
-
-    getTiposDocumento()
 
     return {
       titleForm,
@@ -743,33 +560,18 @@ export default {
       tipoDocSel,
       formData,
       getRuc,
+      getRuc2,
       searchData,
       fotoReniec,
       saveForm,
       toggleSidebar,
       isReadOnly,
-      cargos,
-      cargoSel,
-      sexos,
-      sexoSel,
       resetForm,
       readonlyFrm,
       tiposPersona,
       tipoPersonaSel,
       isJuridica,
-      dptoSel,
-      provSel,
-      distSel,
-      dptos,
-      provs,
-      dists,
-      getUbigeos,
       placeholderTP,
-      tiposProducto,
-      tipoProductoSel,
-      isGranel,
-      isCilindro,
-      showBox,
     }
   },
 }

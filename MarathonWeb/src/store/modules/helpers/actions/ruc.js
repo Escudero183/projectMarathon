@@ -10,4 +10,13 @@ export default {
       })
     })
   },
+  GET_DATOS_BY_RUC2(_, params) {
+    return new Promise((resolve, reject) => {
+      service.getDatosByRuc2(params).then(res => {
+        resolve(res)
+      }).catch(err => {
+        reject(err)
+      })
+    })
+  },
 }

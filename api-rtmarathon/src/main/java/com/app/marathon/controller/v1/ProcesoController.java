@@ -4,6 +4,7 @@
 package com.app.marathon.controller.v1;
 
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -61,6 +62,15 @@ public class ProcesoController {
 		}
 		
 		HashMap<String, Object> result = new HashMap<>();
+		
+		/* VALIDACIONES */
+		List<Empresa> existe = empresaService.findByRuc(empresa.getRuc());
+		if(!existe.isEmpty()) {
+			result.put("success", false);
+			result.put("message", "Ya existe un registro con el RUC: " + empresa.getRuc());
+			return new ResponseEntity<>(result, HttpStatus.CONFLICT); 
+		}		
+		
 		empresa.setEstado(true);
 		empresa.setCrAt(new java.sql.Timestamp(System.currentTimeMillis()));
 		empresa.setUserCr(idUser);

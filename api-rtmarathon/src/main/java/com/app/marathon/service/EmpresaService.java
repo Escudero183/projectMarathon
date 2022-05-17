@@ -37,6 +37,10 @@ public class EmpresaService {
 		return (List<Empresa>) empresaRepository.findAll();
 	}
 	
+	public List<Empresa> findByRuc(String ruc) {
+		return (List<Empresa>) empresaRepository.findByRuc(ruc);
+	}
+	
 	public Empresa findById(Integer id) {
 		return empresaRepository.findById(id).orElse(null);
 	}

@@ -92,122 +92,36 @@
               {{ data.item.razonSocial }}
             </span>
             <small class="text-muted">{{ data.item.representanteLegal }}</small>
-            <small class="text-muted d-block ">{{ data.item.tipoDocumento.abreviatura }} {{ data.item.documento }}</small>
+            <small class="text-muted d-block ">RUC {{ data.item.documento }}</small>
           </b-media>
         </template>
 
-        <template #cell(tipoProducto)="data">
-          <template v-if="data.item.tipoProducto === 'CILINDRO'">
+        <template #cell(estadoSunat)="data">
+          <template v-if="data.item.estadoSunat === 'ACTIVO'">
             <b-badge
               pill
               variant="light-success"
             >
-              {{ data.item.tipoProducto }}
+              {{ data.item.estadoSunat }}
             </b-badge>
           </template>
-          <template v-if="data.item.tipoProducto === 'GRANEL'">
+          <template v-else>
             <b-badge
               pill
-              variant="light-info"
+              variant="light-danger"
             >
-              {{ data.item.tipoProducto }}
-            </b-badge>
-          </template>
-          <template v-if="data.item.tipoProducto === 'AMBOS'">
-            <b-badge
-              pill
-              variant="light-secondary"
-            >
-              {{ data.item.tipoProducto }}
+              {{ data.item.estadoSunat }}
             </b-badge>
           </template>
         </template>
 
-        <template #cell(capacidadAutorizada)="data">
-          <template v-if="data.item.tipoProducto === 'CILINDRO'">
-            <span class="font-weight-bold d-block text-nowrap">
-              {{ data.item.capacidadAutorizada }} KG
-            </span>
-          </template>
-          <template v-if="data.item.tipoProducto === 'GRANEL'">
-            <div>
-              <label class="font-weight-bold">Total {{ data.item.capacidadGranel }} GAL</label>
-              <b-progress
-                :max="data.item.capacidadGranel"
-              >
-                <b-progress-bar :value="data.item.capacidadActualPorc/100*data.item.capacidadGranel">
-                  <strong>{{ data.item.capacidadActualPorc }}%</strong>
-                </b-progress-bar>
-              </b-progress>
-            </div>
-          </template>
-          <template v-if="data.item.tipoProducto === 'AMBOS'">
-            <span class="font-weight-bold d-block text-nowrap">
-              {{ data.item.capacidadAutorizada }} KG | {{ data.item.capacidadGranel }} GAL / {{ data.item.capacidadActualPorc }}%
-            </span>
-          </template>
-        </template>
-
-        <template #cell(ubigeoAll)="data">
+        <template #cell(departamento)="data">
           <b-media vertical-align="center">
             <span class="font-weight-bold d-block font-small-3">
               {{ data.item.direccion }}
             </span>
-            <small class="text-muted font-small-2">{{ data.item.ubigeoAll.dpto }} / {{ data.item.ubigeoAll.prov }} / {{ data.item.ubigeoAll.dist }}</small>
+            <small class="text-muted font-small-2">{{ data.item.departamento }} / {{ data.item.provincia }} / {{ data.item.distrito }}</small>
           </b-media>
-          <div class="d-block">
-            <b-link
-              v-if="data.item.celular != '' && data.item.celular != null"
-              v-b-tooltip.hover.top="`Celular: ${data.item.celular}`"
-              :href="`tel:${data.item.celular}`"
-              target="_blank"
-              class="font-weight-bold"
-            >
-              <b-avatar
-                :id="`btn-cel-${data.item.idTrabajador}`"
-                size="32"
-                :variant="`light-info`"
-              >
-                <feather-icon
-                  icon="SmartphoneIcon"
-                />
-              </b-avatar>
-            </b-link>
-            <b-link
-              v-if="data.item.correo != '' && data.item.correo != null"
-              v-b-tooltip.hover.top="data.item.correo"
-              :href="`mailto:${data.item.correo}`"
-              target="_blank"
-              class="font-weight-bold ml-50"
-            >
-              <b-avatar
-                :id="`btn-correo-${data.item.idTrabajador}`"
-                size="32"
-                :variant="`light-primary`"
-              >
-                <feather-icon
-                  icon="MailIcon"
-                />
-              </b-avatar>
-            </b-link>
-            <b-link
-              v-if="data.item.latitud != '' && data.item.latitud != null && data.item.longitud != '' && data.item.longitud != null"
-              v-b-tooltip.hover.top="'Ir a Google Maps'"
-              :href="`https://maps.google.com/?ll=${data.item.latitud},${data.item.longitud}&z=14`"
-              target="_blank"
-              class="font-weight-bold ml-50"
-            >
-              <b-avatar
-                :id="`btn-ubi-${data.item.idTrabajador}`"
-                size="32"
-                :variant="`light-warning`"
-              >
-                <feather-icon
-                  icon="MapPinIcon"
-                />
-              </b-avatar>
-            </b-link>
-          </div>
         </template>
 
         <!-- Column: Actions -->
@@ -290,7 +204,7 @@
 
 <script>
 import {
-  BCard, BRow, BCol, BFormInput, BButton, BTable, BBadge, BDropdown, BDropdownItem, BPagination, BSpinner, BAvatar, BMedia, VBTooltip, BLink, BProgress, BProgressBar,
+  BCard, BRow, BCol, BFormInput, BButton, BTable, BBadge, BDropdown, BDropdownItem, BPagination, BSpinner, BAvatar, BMedia, VBTooltip,
 } from 'bootstrap-vue'
 import vSelect from 'vue-select'
 import store from '@/store'
@@ -316,9 +230,6 @@ export default {
     BSpinner,
     BAvatar,
     BMedia,
-    BLink,
-    BProgress,
-    BProgressBar,
   },
   directives: {
     'b-tooltip': VBTooltip,
@@ -344,11 +255,10 @@ export default {
     query: '',
     items: [],
     fields: [
-      { key: 'idCliente', sortable: true, thClass: 'd-none', tdClass: 'd-none' },
-      { key: 'razonSocial', label: 'Cliente', sortable: true },
-      { key: 'tipoProducto', label: 'Rubro', sortable: true },
-      { key: 'capacidadAutorizada', label: 'Capacidad', sortable: true, tdClass: 'text-center', thClass: 'text-center' },
-      { key: 'ubigeoAll', label: 'Contacto', sortable: true, tdClass: 'w200', thClass: 'w200' },
+      { key: 'idEmpresa', sortable: true, thClass: 'd-none', tdClass: 'd-none' },
+      { key: 'razonSocial', label: 'Empresa', sortable: true },
+      { key: 'departamento', label: 'Ubicación', sortable: true, tdClass: 'w200', thClass: 'w200' },
+      { key: 'estadoSunat', label: 'Sunat', sortable: true, tdClass: 'text-center', thClass: 'text-center' },
       { key: 'acciones' },
     ],
   }),
@@ -423,7 +333,7 @@ export default {
         if (result.value) {
           store
             .dispatch('proceso/EMPRESA_DELETE', {
-              id: data.item.idCliente,
+              id: data.item.idEmpresa,
             })
             .then(response => {
               this.listarRegistros()
