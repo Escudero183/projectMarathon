@@ -8,15 +8,15 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 @SpringBootApplication
 @EnableJpaAuditing
-public class ApiCheckMoneyApplication extends SpringBootServletInitializer{
+public class ApiMarathonApplication extends SpringBootServletInitializer{
 
 	public static void main(String[] args) {
-		SpringApplication.run(ApiCheckMoneyApplication.class, args);
+		SpringApplication.run(ApiMarathonApplication.class, args);
 	}
 	
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-		return application.sources(ApiCheckMoneyApplication.class);
+		return application.sources(ApiMarathonApplication.class);
 	}
 
 }
